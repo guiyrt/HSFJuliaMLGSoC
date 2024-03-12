@@ -101,6 +101,9 @@ When trained over 200 epochs and evaluated over the whole dataset, the following
 ## Usage
 You can either run the cells on the notebook to get new results, or use **main.jl** to train/eval via the CLI. Like previously stated, this script makes use of the definitions on _HSFJuliaMLGSoC.jl_. For the latter, you can run it with `--help` option to know more about the usage and arguments, but it can be used in two ways:
 
+> [!NOTE]
+> Remember to extract dataset.csv.zip before execution.
+
 ### Training from stratch
 If you just provide the CSV dataset path, it will train the model and then calculate accuracy over the full dataset. You can also change the number of epochs with the option `--epochs`/`-e` (defaults to 200).
 
