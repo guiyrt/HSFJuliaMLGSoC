@@ -31,14 +31,14 @@ This repository contains a notebook, a Julia package and a script that uses the 
 
 ### Model architecture
 
-<img align="right" width="700px" src="assets/img/mlp.png"/>
-
 The chosen model architecture for this task was the Multi-Layer Perceptron (MLP). It's a proven choice for classification tasks with tabular data due to being both high-performant and easy to implement. On the notebook, multiple variations were tested until reasonable accuracy was achieved. This was so that the specific network wasn't arbritarely large, the tests iteratively increased the number of trainable parameters until satisfactory accuracy was achieved.
 
 All of the variations had similarities in the input and output layers. The nodes of the input layer all had three weights, that correspond to the dimensionality of the data, i.e., the x,y,z coordinates. The output layer is composed of only one node, that outputs a single value in the [0,1] range (thanks to _sigmoid_ activation). This is because _signal_ is encoded as `true` (or `1`) and _background_ is encoded as `false` (or `0`). By setting a threshold at 0.5, if the output of the network is bigger than 0.5 it's interpreted as a _signal_ prediction, otherwise a _background_ prediction.
 
-The first attempt had no hidden layers, which learned to always classify every input as _background_, due to dataset imbalance (77.555% of the data is composed of _background_ samples, so that results in 77.555% accuracy). Then a hidden layer was added, first with 8 nodes and then with 16, which reached 83.562% and 94.833% accuracy, respectively. Finally, another hidden layer was added, resulting in the final architecture represented by the image on the right. It has 2 hidden layers, the first with 32 nodes and the second with 16 nodes. Unlike the previous networks, which were trained and evaluated exclusively with Float64 precision on input data and weights/biases, Float32 was also tested for this final case. The use of Float64 was necessary to retain exact representation of the dataset predictors. In terms of accuracy, the values of 99.073% and 98.927% were achieved for Float64 and Float32 respectively. In terms of training time, step execution time was reduced by 7.5%, from 94.64μs to 87.51μs. Model size was also reduced from 5.63KiB to 3KiB.
+The first attempt had no hidden layers, which learned to always classify every input as _background_, due to dataset imbalance (77.555% of the data is composed of _background_ samples, so that results in 77.555% accuracy). Then a hidden layer was added, first with 8 nodes and then with 16, which reached 83.562% and 94.833% accuracy, respectively. Finally, another hidden layer was added, resulting in the final architecture represented by the image below. It has 2 hidden layers, the first with 32 nodes and the second with 16 nodes. Unlike the previous networks, which were trained and evaluated exclusively with Float64 precision on input data and weights/biases, Float32 was also tested for this final case. The use of Float64 was necessary to retain exact representation of the dataset predictors. In terms of accuracy, the values of 99.073% and 98.927% were achieved for Float64 and Float32 respectively. In terms of training time, step execution time was reduced by 7.5%, from 94.64μs to 87.51μs. Model size was also reduced from 5.63KiB to 3KiB.
 
+![Final MLP Architecture](assets/img/mlp.png)
+*Final MLP Architecture*
 
 ### Loss function
 There are actually two equivalent possibilities for the loss function:
